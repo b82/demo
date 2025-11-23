@@ -7,7 +7,7 @@
  * module App
  */
 
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { useAppSelector, useAppDispatch } from "./store/hooks";
 import { setCurrentPage } from "./store/slices/uiSlice";
 import { Layout } from "./components/Layout";

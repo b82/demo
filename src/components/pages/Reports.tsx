@@ -1,3 +1,4 @@
+import React from "react";
 import { Card } from "../ui/card";
 import { Button } from "../ui/button";
 import { Upload, FileText, TrendingUp, ArrowUp, ArrowDown } from "lucide-react";

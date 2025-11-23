@@ -7,7 +7,7 @@
  * module components/pages/Dashboard
  */
 
-import { useMemo, memo } from "react";
+import React, { useMemo, memo } from "react";
 import { ArrowUp, ArrowDown, DollarSign, ShoppingBag, TrendingUp, CreditCard, Download } from "lucide-react";
 import { Card } from "../ui/card";
 import { Badge } from "../ui/badge";

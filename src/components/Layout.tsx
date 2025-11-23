@@ -7,7 +7,7 @@
  * module components/Layout
  */
 
-import { ReactNode, useEffect, useMemo, memo } from "react";
+import React, { ReactNode, useEffect, useMemo, memo } from "react";
 import { PageType } from "../App";
 import { useAppSelector, useAppDispatch } from "../store/hooks";
 import { toggleSidebar, toggleTheme, toggleMobileMenu, setMobileMenuOpen } from "../store/slices/uiSlice";
