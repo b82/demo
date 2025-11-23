@@ -131,7 +131,7 @@ export const Layout = memo(function Layout({ children, currentPage, onPageChange
       {/* Mobile Menu Overlay - Using CSS for transitions */}
       <div 
         className={`fixed inset-0 bg-black/50 z-40 md:hidden transition-opacity duration-300 ${
-          mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none invisible'
         }`}
         onClick={handleCloseMobileMenu}
         aria-hidden={!mobileMenuOpen}
@@ -320,12 +320,22 @@ export const Layout = memo(function Layout({ children, currentPage, onPageChange
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Theme Toggle */}
+            {/* Theme Toggle - Desktop */}
             <Button 
               variant="ghost" 
               size="icon"
               onClick={handleThemeToggle}
               className="hidden md:flex"
+              aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              {isDarkMode ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+            </Button>
+            {/* Theme Toggle - Mobile */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={handleThemeToggle}
+              className="md:hidden"
               aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
             >
               {isDarkMode ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
