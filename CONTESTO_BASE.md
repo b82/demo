@@ -1,119 +1,119 @@
-# Contesto Base della Dashboard
+# Dashboard Base Context
 
-## Panoramica
+## Overview
 
-Questa dashboard è un'applicazione web moderna per la gestione e visualizzazione di dati di vendita e analisi. Il progetto è stato sviluppato come dimostrazione di un'interfaccia utente completa e funzionale per un sistema di gestione vendite.
+This dashboard is a modern web application for managing and visualizing sales data and analytics. The project demonstrates a complete, production-style UI for a sales management system.
 
-## Scopo del Progetto
+## Project Purpose
 
-La dashboard **SalesFlow** è progettata per:
+The **SalesFlow** dashboard is designed to:
 
-- **Visualizzazione Dati**: Mostrare metriche chiave, grafici e statistiche in tempo reale
-- **Gestione Operativa**: Permettere la gestione di ordini, prodotti, clienti e report
-- **Analisi**: Fornire strumenti per analizzare le performance aziendali
-- **User Experience**: Offrire un'interfaccia moderna, responsive e accessibile
+- **Data Visualization**: Show key metrics, charts, and real-time statistics
+- **Operational Management**: Manage orders, products, clients, and reports
+- **Analytics**: Provide tools to analyze business performance
+- **User Experience**: Offer a modern, responsive, and accessible interface
 
-## Funzionalità Principali
+## Key Features
 
-### 1. Dashboard Principale
-- Visualizzazione di metriche chiave (KPI)
-- Grafici interattivi per analisi delle vendite
-- Statistiche in tempo reale
-- Overview delle performance aziendali
+### 1. Main Dashboard
+- Key metrics (KPIs)
+- Interactive sales charts
+- Real-time statistics
+- Business performance overview
 
-### 2. Gestione Ordini
-- Visualizzazione lista ordini
-- Filtri e ricerca avanzata
-- Dettagli ordini
-- Gestione stato ordini
+### 2. Order Management
+- Orders list
+- Advanced filters and search
+- Order details
+- Order status management
 
-### 3. Gestione Prodotti
-- Catalogo prodotti
-- Informazioni dettagliate
-- Gestione inventario
-- Categorie e classificazioni
+### 3. Product Management
+- Product catalog
+- Detailed information
+- Inventory management
+- Categories and classifications
 
-### 4. Gestione Clienti
-- Database clienti
-- Informazioni di contatto
-- Storico acquisti
-- Segmentazione clienti
+### 4. Client Management
+- Client database
+- Contact information
+- Purchase history
+- Client segmentation
 
-### 5. Report e Analisi
-- Report personalizzati
-- Esportazione dati
-- Analisi comparative
-- Trend e previsioni
+### 5. Reports and Analytics
+- Custom reports
+- Data export
+- Comparative analysis
+- Trends and forecasts
 
-### 6. Impostazioni
-- Configurazione account
-- Preferenze utente
-- Gestione team
-- Integrazioni
+### 6. Settings
+- Account configuration
+- User preferences
+- Team management
+- Integrations
 
 ### 7. Design System
-- Componenti UI riutilizzabili
-- Guida stile
-- Pattern di design
-- Documentazione componenti
+- Reusable UI components
+- Style guide
+- Design patterns
+- Component documentation
 
-## Caratteristiche Tecniche
+## Technical Characteristics
 
-### Architettura
+### Architecture
 - **Pattern**: Single Page Application (SPA)
-- **State Management**: Redux Toolkit con RTK Query
-- **Routing**: Navigazione client-side basata su stato Redux
-- **Styling**: Tailwind CSS con variabili CSS per theming
+- **State Management**: Redux Toolkit with RTK Query
+- **Routing**: Client-side navigation driven by Redux state
+- **Styling**: Tailwind CSS with CSS variables for theming
 
-### Temi e Personalizzazione
-- **Dark Mode**: Supporto completo per tema scuro
-- **Light Mode**: Tema chiaro predefinito
-- **CSS Variables**: Sistema di variabili CSS per theming dinamico
-- **Responsive Design**: Layout adattivo per mobile, tablet e desktop
+### Themes and Customization
+- **Dark Mode**: Full dark theme support
+- **Light Mode**: Default light theme
+- **CSS Variables**: Variable-based dynamic theming
+- **Responsive Design**: Adaptive layout for mobile, tablet, and desktop
 
 ### Performance
-- **Code Splitting**: Caricamento lazy dei componenti
-- **Memoization**: Ottimizzazione re-render con React.memo, useMemo, useCallback
-- **CSS Transitions**: Animazioni hardware-accelerate
-- **Caching**: RTK Query per caching automatico delle chiamate API
+- **Code Splitting**: Lazy loading of components
+- **Memoization**: React.memo, useMemo, and useCallback to reduce re-renders
+- **CSS Transitions**: Hardware-accelerated animations
+- **Caching**: RTK Query for automatic API call caching
 
-### Accessibilità
-- **Radix UI**: Componenti accessibili out-of-the-box
-- **ARIA Labels**: Supporto completo per screen reader
-- **Keyboard Navigation**: Navigazione completa da tastiera
-- **Focus Management**: Gestione corretta del focus
+### Accessibility
+- **Radix UI**: Accessible components out of the box
+- **ARIA Labels**: Full screen reader support
+- **Keyboard Navigation**: Complete keyboard navigation
+- **Focus Management**: Proper focus handling
 
-## Flusso di Navigazione
+## Navigation Flow
 
-1. **Avvio Applicazione**: L'applicazione si carica e mostra la dashboard principale
-2. **Navigazione Sidebar**: L'utente può navigare tra le diverse sezioni usando la sidebar
-3. **Visualizzazione Contenuto**: Il contenuto della pagina selezionata viene renderizzato dinamicamente
-4. **Interazioni**: L'utente può interagire con i componenti, filtrare dati, e modificare visualizzazioni
-5. **Tema**: L'utente può cambiare tema (light/dark) in qualsiasi momento
+1. **App Launch**: The app loads and shows the main dashboard
+2. **Sidebar Navigation**: Users move between sections via the sidebar
+3. **Content Rendering**: The selected page content renders dynamically
+4. **Interactions**: Users interact with components, filter data, and adjust views
+5. **Theme**: Users can switch theme (light/dark) at any time
 
-## Stato dell'Applicazione
+## Application State
 
 ### UI State (Redux)
-- **currentPage**: Pagina corrente attiva
-- **sidebarCollapsed**: Stato di collasso della sidebar
-- **isDarkMode**: Modalità tema (dark/light)
-- **mobileMenuOpen**: Stato del menu mobile
+- **currentPage**: Current active page
+- **sidebarCollapsed**: Sidebar collapsed state
+- **isDarkMode**: Theme mode (dark/light)
+- **mobileMenuOpen**: Mobile menu state
 
 ### API State (RTK Query)
-- **Dashboard Data**: Dati della dashboard principale
-- **Orders**: Lista e dettagli ordini
-- **Products**: Catalogo prodotti
-- **Clients**: Database clienti
-- **Reports**: Dati per report
+- **Dashboard Data**: Main dashboard data
+- **Orders**: Order list and details
+- **Products**: Product catalog
+- **Clients**: Client database
+- **Reports**: Report data
 
-## Configurazione Base
+## Base Configuration
 
-### Variabili d'Ambiente
+### Environment Variables
 ```env
 VITE_API_URL=http://localhost:3001/api
 ```
 
-### Dipendenze Principali
+### Core Dependencies
 - React 18.3+
 - TypeScript
 - Redux Toolkit
@@ -122,35 +122,34 @@ VITE_API_URL=http://localhost:3001/api
 - Radix UI
 - Recharts
 
-## Utilizzo Base
+## Basic Usage
 
-### Sviluppo
+### Development
 ```bash
-npm install    # Installa dipendenze
-npm run dev    # Avvia server di sviluppo
+npm install    # Install dependencies
+npm run dev    # Start dev server
 ```
 
-### Produzione
+### Production
 ```bash
-npm run build  # Crea build di produzione
-npm run deploy # Deploy su GitHub Pages
+npm run build  # Create production build
+npm run deploy # Deploy to GitHub Pages
 ```
 
-## Convenzioni di Codice
+## Code Conventions
 
-- **TypeScript**: Tipizzazione forte per sicurezza del codice
-- **Componenti Funzionali**: Uso di React Hooks
-- **Memoization**: Ottimizzazione performance dove necessario
-- **CSS Variables**: Uso di variabili CSS per theming
-- **JSDoc**: Documentazione inline per funzioni e componenti
+- **TypeScript**: Strong typing for safer code
+- **Functional Components**: React Hooks
+- **Memoization**: Performance where needed
+- **CSS Variables**: Theming through CSS vars
+- **JSDoc**: Inline documentation for functions and components
 
-## Prossimi Sviluppi
+## Next Improvements
 
-- [ ] Autenticazione utente
-- [ ] Autorizzazioni e ruoli
-- [ ] Notifiche in tempo reale
-- [ ] Esportazione dati (CSV, PDF)
-- [ ] Integrazione con API esterne
-- [ ] Test automatizzati
-- [ ] Service Worker per offline support
-
+- [ ] User authentication
+- [ ] Permissions and roles
+- [ ] Real-time notifications
+- [ ] Data export (CSV, PDF)
+- [ ] External API integration
+- [ ] Automated tests
+- [ ] Service worker for offline support
