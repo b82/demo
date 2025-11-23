@@ -1,7 +1,7 @@
 
   # Sales Analytics Dashboard
 
-  React/TypeScript dashboard based on the original Figma design: https://www.figma.com/design/Mb6Awk3BssZ2m6RNLeXhFo/Sales-Analytics-Dashboard-Design.
+  React/TypeScript
   
   ## Tech stack
   - React 18 + TypeScript
