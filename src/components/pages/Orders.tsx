@@ -14,7 +14,7 @@ const ordersData = [
     date: "2025-11-22", 
     total: "€299.99", 
     status: "Delivered",
-    email: "sarah.j@email.com",
+    email: "sarah.jemail.com",
     items: 3,
     payment: "Credit Card"
   },
@@ -24,7 +24,7 @@ const ordersData = [
     date: "2025-11-22", 
     total: "€449.99", 
     status: "Pending",
-    email: "m.chen@email.com",
+    email: "m.chenemail.com",
     items: 1,
     payment: "PayPal"
   },
@@ -34,7 +34,7 @@ const ordersData = [
     date: "2025-11-21", 
     total: "€89.99", 
     status: "Delivered",
-    email: "emily.d@email.com",
+    email: "emily.demail.com",
     items: 2,
     payment: "Credit Card"
   },
@@ -44,7 +44,7 @@ const ordersData = [
     date: "2025-11-21", 
     total: "€159.99", 
     status: "Failed",
-    email: "j.wilson@email.com",
+    email: "j.wilsonemail.com",
     items: 1,
     payment: "Credit Card"
   },
@@ -54,7 +54,7 @@ const ordersData = [
     date: "2025-11-20", 
     total: "€189.99", 
     status: "Processing",
-    email: "amanda.b@email.com",
+    email: "amanda.bemail.com",
     items: 4,
     payment: "Debit Card"
   },
@@ -64,7 +64,7 @@ const ordersData = [
     date: "2025-11-20", 
     total: "€549.99", 
     status: "Delivered",
-    email: "rob.taylor@email.com",
+    email: "rob.tayloremail.com",
     items: 2,
     payment: "Credit Card"
   },
@@ -74,7 +74,7 @@ const ordersData = [
     date: "2025-11-19", 
     total: "€329.99", 
     status: "Pending",
-    email: "lisa.m@email.com",
+    email: "lisa.memail.com",
     items: 3,
     payment: "PayPal"
   },
@@ -84,7 +84,7 @@ const ordersData = [
     date: "2025-11-19", 
     total: "€799.99", 
     status: "Delivered",
-    email: "d.anderson@email.com",
+    email: "d.andersonemail.com",
     items: 5,
     payment: "Credit Card"
   },

@@ -8,14 +8,14 @@ import { Users, UserPlus, TrendingUp, Search, Upload, Plus } from "lucide-react"
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts";
 
 const clientsData = [
-  { id: "CLT-001", name: "Sarah Johnson", email: "sarah.j@email.com", totalOrders: 12, totalSpent: "€3,589.88", type: "Returning", lastOrder: "2025-11-22", status: "Active" },
-  { id: "CLT-002", name: "Michael Chen", email: "m.chen@email.com", totalOrders: 8, totalSpent: "€2,234.92", type: "Returning", lastOrder: "2025-11-20", status: "Active" },
-  { id: "CLT-003", name: "Emily Davis", email: "emily.d@email.com", totalOrders: 1, totalSpent: "€89.99", type: "New", lastOrder: "2025-11-21", status: "Active" },
-  { id: "CLT-004", name: "James Wilson", email: "j.wilson@email.com", totalOrders: 25, totalSpent: "€8,945.50", type: "VIP", lastOrder: "2025-11-22", status: "Active" },
-  { id: "CLT-005", name: "Amanda Brown", email: "amanda.b@email.com", totalOrders: 5, totalSpent: "€1,234.95", type: "Returning", lastOrder: "2025-11-19", status: "Active" },
-  { id: "CLT-006", name: "Robert Taylor", email: "rob.taylor@email.com", totalOrders: 3, totalSpent: "€789.97", type: "New", lastOrder: "2025-11-18", status: "Inactive" },
-  { id: "CLT-007", name: "Lisa Martinez", email: "lisa.m@email.com", totalOrders: 18, totalSpent: "€5,678.82", type: "VIP", lastOrder: "2025-11-21", status: "Active" },
-  { id: "CLT-008", name: "David Anderson", email: "d.anderson@email.com", totalOrders: 7, totalSpent: "€1,899.93", type: "Returning", lastOrder: "2025-11-20", status: "Active" },
+  { id: "CLT-001", name: "Sarah Johnson", email: "sarah.jemail.com", totalOrders: 12, totalSpent: "€3,589.88", type: "Returning", lastOrder: "2025-11-22", status: "Active" },
+  { id: "CLT-002", name: "Michael Chen", email: "m.chenemail.com", totalOrders: 8, totalSpent: "€2,234.92", type: "Returning", lastOrder: "2025-11-20", status: "Active" },
+  { id: "CLT-003", name: "Emily Davis", email: "emily.demail.com", totalOrders: 1, totalSpent: "€89.99", type: "New", lastOrder: "2025-11-21", status: "Active" },
+  { id: "CLT-004", name: "James Wilson", email: "j.wilsonemail.com", totalOrders: 25, totalSpent: "€8,945.50", type: "VIP", lastOrder: "2025-11-22", status: "Active" },
+  { id: "CLT-005", name: "Amanda Brown", email: "amanda.bemail.com", totalOrders: 5, totalSpent: "€1,234.95", type: "Returning", lastOrder: "2025-11-19", status: "Active" },
+  { id: "CLT-006", name: "Robert Taylor", email: "rob.tayloremail.com", totalOrders: 3, totalSpent: "€789.97", type: "New", lastOrder: "2025-11-18", status: "Inactive" },
+  { id: "CLT-007", name: "Lisa Martinez", email: "lisa.memail.com", totalOrders: 18, totalSpent: "€5,678.82", type: "VIP", lastOrder: "2025-11-21", status: "Active" },
+  { id: "CLT-008", name: "David Anderson", email: "d.andersonemail.com", totalOrders: 7, totalSpent: "€1,899.93", type: "Returning", lastOrder: "2025-11-20", status: "Active" },
 ];
 
 const customerTypeData = [

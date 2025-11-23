@@ -1,3 +1,13 @@
+/**
+ * Dashboard Page Component
+ * 
+ * Displays key performance indicators, sales trends, and recent transactions.
+ * Optimized with React.memo and useMemo for performance.
+ * 
+ * module components/pages/Dashboard
+ */
+
+import { useMemo, memo } from "react";
 import { ArrowUp, ArrowDown, DollarSign, ShoppingBag, TrendingUp, CreditCard, Download } from "lucide-react";
 import { Card } from "../ui/card";
 import { Badge } from "../ui/badge";
@@ -107,8 +117,18 @@ const heatmapData = [
   { day: "Sun", value: 28 },
 ];
 
-// Format numbers to K notation (e.g., 10000 -> 10K, 7500 -> 7.5K)
-const formatToK = (value: number) => {
+/**
+ * Formats numbers to K notation (e.g., 10000 -> 10K, 7500 -> 7.5K)
+ * 
+ * param value - The number to format
+ * returns Formatted string representation
+ * 
+ * example
+ * formatToK(10000) // "10K"
+ * formatToK(7500) // "7.5K"
+ * formatToK(500) // "500"
+ */
+const formatToK = (value: number): string => {
   if (value >= 1000) {
     const kValue = value / 1000;
     return kValue % 1 === 0 ? `${kValue}K` : `${kValue.toFixed(1).replace('.', ',')}K`;
@@ -116,7 +136,24 @@ const formatToK = (value: number) => {
   return value.toString();
 };
 
-export function Dashboard() {
+/**
+ * Dashboard Page Component
+ * 
+ * Main dashboard displaying KPIs, sales trends, and recent transactions.
+ * Uses memoization for performance optimization.
+ * 
+ * returns {JSX.Element} The dashboard page
+ */
+export const Dashboard = memo(function Dashboard() {
+  // Memoize KPI data to prevent unnecessary re-renders
+  const memoizedKpiData = useMemo(() => kpiData, []);
+  
+  // Memoize sales data
+  const memoizedSalesData = useMemo(() => salesData, []);
+  
+  // Memoize filtered products for table
+  const topProductsList = useMemo(() => topProducts, []);
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -136,7 +173,7 @@ export function Dashboard() {
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {kpiData.map((kpi, index) => {
+        {memoizedKpiData.map((kpi, index) => {
           const Icon = kpi.icon;
           return (
             <Card key={index} className="bg-[var(--dashboard-surface)] border-[var(--dashboard-border)] p-6">
@@ -178,7 +215,7 @@ export function Dashboard() {
           </div>
           <div className="flex-1 min-h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={salesData} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
+              <AreaChart data={memoizedSalesData} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
                 <defs>
                   <linearGradient id="salesGradient" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="#22c55e" stopOpacity={0.3}/>
@@ -300,7 +337,7 @@ export function Dashboard() {
               </tr>
             </thead>
             <tbody>
-              {topProducts.map((product) => (
+              {topProductsList.map((product) => (
                 <tr key={product.id} className="border-b border-[var(--dashboard-border)] hover:bg-[var(--dashboard-hover)] transition">
                   <td className="py-4 text-sm text-[var(--dashboard-text-muted)]">{product.id}</td>
                   <td className="py-4 text-[var(--dashboard-text-primary)]">{product.product}</td>
@@ -328,7 +365,7 @@ export function Dashboard() {
 
         {/* Mobile Card View */}
         <div className="md:hidden space-y-4">
-          {topProducts.map((product) => (
+          {topProductsList.map((product) => (
             <div key={product.id} className="p-4 bg-[var(--dashboard-bg)] border border-[var(--dashboard-border)] rounded-lg space-y-3">
               <div className="flex items-start justify-between">
                 <div>
@@ -368,4 +405,4 @@ export function Dashboard() {
       </Card>
     </div>
   );
-}
+});

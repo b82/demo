@@ -1,4 +1,13 @@
+/**
+ * Main Stylesheet
+ * 
+ * Imports Tailwind CSS and custom utilities.
+ * 
+ * @module index.css
+ */
+
 /*! tailwindcss v4.1.3 | MIT License | https://tailwindcss.com */
+@import './styles/utilities.css';
 @layer properties {
   @supports (((-webkit-hyphens: none)) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color: rgb(from red r g b)))) {
     *, :before, :after, ::backdrop {

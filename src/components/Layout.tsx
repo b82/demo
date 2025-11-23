@@ -1,5 +1,16 @@
-import { ReactNode, useState, useEffect } from "react";
+/**
+ * Layout Component
+ * 
+ * Main layout component with sidebar, header, and content area.
+ * Uses Redux for state management and CSS for theme switching.
+ * 
+ * module components/Layout
+ */
+
+import { ReactNode, useEffect, useMemo, memo } from "react";
 import { PageType } from "../App";
+import { useAppSelector, useAppDispatch } from "../store/hooks";
+import { toggleSidebar, toggleTheme, toggleMobileMenu, setMobileMenuOpen } from "../store/slices/uiSlice";
 import { 
   LayoutDashboard, 
   ShoppingCart, 
@@ -35,23 +46,46 @@ interface LayoutProps {
   currentPage: PageType;
   onPageChange: (page: PageType) => void;
   sidebarCollapsed: boolean;
-  onSidebarToggle: () => void;
 }
 
-const navigationItems = [
-  { id: 'dashboard' as PageType, label: 'Dashboard', icon: LayoutDashboard },
-  { id: 'orders' as PageType, label: 'Orders', icon: ShoppingCart },
-  { id: 'products' as PageType, label: 'Products', icon: Package },
-  { id: 'clients' as PageType, label: 'Clients', icon: Users },
-  { id: 'reports' as PageType, label: 'Reports', icon: FileText },
-  { id: 'settings' as PageType, label: 'Settings', icon: SettingsIcon },
-];
+/**
+ * Navigation items configuration
+ */
+const navigationItems: Array<{ id: PageType; label: string; icon: typeof LayoutDashboard }> = [
+  { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { id: 'orders', label: 'Orders', icon: ShoppingCart },
+  { id: 'products', label: 'Products', icon: Package },
+  { id: 'clients', label: 'Clients', icon: Users },
+  { id: 'reports', label: 'Reports', icon: FileText },
+  { id: 'settings', label: 'Settings', icon: SettingsIcon },
+] as const;
 
-export function Layout({ children, currentPage, onPageChange, sidebarCollapsed, onSidebarToggle }: LayoutProps) {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+/**
+ * Layout Component
+ * 
+ * Provides the main application layout with sidebar navigation and header.
+ * Manages theme switching via CSS classes and Redux state.
+ * 
+ * param props - Layout component props
+ * param props.children - Page content to render
+ * param props.currentPage - Currently active page
+ * param props.onPageChange - Callback for page navigation
+ * param props.sidebarCollapsed - Whether sidebar is collapsed
+ * returns {JSX.Element} The layout component
+ */
+export const Layout = memo(function Layout({ children, currentPage, onPageChange, sidebarCollapsed }: LayoutProps) {
+  const dispatch = useAppDispatch();
+  const isDarkMode = useAppSelector((state) => state.ui.isDarkMode);
+  const mobileMenuOpen = useAppSelector((state) => state.ui.mobileMenuOpen);
 
+  /**
+   * Syncs dark mode state with DOM class
+   * Uses CSS for theme switching instead of JavaScript manipulation
+   */
   useEffect(() => {
+    // Use CSS custom property for theme instead of class manipulation
+    document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+    // Keep class for Tailwind dark mode support
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
     } else {
@@ -59,19 +93,53 @@ export function Layout({ children, currentPage, onPageChange, sidebarCollapsed, 
     }
   }, [isDarkMode]);
 
+  /**
+   * Handles sidebar toggle
+   */
+  const handleSidebarToggle = () => {
+    dispatch(toggleSidebar());
+  };
+
+  /**
+   * Handles theme toggle
+   */
+  const handleThemeToggle = () => {
+    dispatch(toggleTheme());
+  };
+
+  /**
+   * Handles mobile menu toggle
+   */
+  const handleMobileMenuToggle = () => {
+    dispatch(toggleMobileMenu());
+  };
+
+  /**
+   * Closes mobile menu
+   */
+  const handleCloseMobileMenu = () => {
+    dispatch(setMobileMenuOpen(false));
+  };
+
+  /**
+   * Memoized navigation items to prevent unnecessary re-renders
+   */
+  const navItems = useMemo(() => navigationItems, []);
+
   return (
     <div className="flex h-screen overflow-hidden">
-      {/* Mobile Menu Overlay */}
-      {mobileMenuOpen && (
-        <div 
-          className="fixed inset-0 bg-black/50 z-40 md:hidden"
-          onClick={() => setMobileMenuOpen(false)}
-        />
-      )}
+      {/* Mobile Menu Overlay - Using CSS for transitions */}
+      <div 
+        className={`fixed inset-0 bg-black/50 z-40 md:hidden transition-opacity duration-300 ${
+          mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={handleCloseMobileMenu}
+        aria-hidden={!mobileMenuOpen}
+      />
 
-      {/* Desktop Sidebar */}
+      {/* Desktop Sidebar - Using CSS for width transitions */}
       <aside 
-        className={`bg-[var(--dashboard-surface)] border-r border-[var(--dashboard-border)] transition-all duration-300 flex-col ${
+        className={`bg-[var(--dashboard-surface)] border-r border-[var(--dashboard-border)] transition-[width] duration-300 ease-in-out flex-col ${
           sidebarCollapsed ? 'w-16' : 'w-64'
         } hidden md:flex`}
       >
@@ -133,7 +201,7 @@ export function Layout({ children, currentPage, onPageChange, sidebarCollapsed, 
           <Button
             variant="ghost"
             size="sm"
-            onClick={onSidebarToggle}
+            onClick={handleSidebarToggle}
             className={`w-full ${sidebarCollapsed ? 'px-0' : ''}`}
           >
             {sidebarCollapsed ? (
@@ -148,9 +216,9 @@ export function Layout({ children, currentPage, onPageChange, sidebarCollapsed, 
         </div>
       </aside>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Using CSS transform for slide animation */}
       <aside 
-        className={`fixed top-0 left-0 bottom-0 bg-[var(--dashboard-surface)] border-r border-[var(--dashboard-border)] transition-transform duration-300 flex-col w-64 z-50 ${
+        className={`fixed top-0 left-0 bottom-0 bg-[var(--dashboard-surface)] border-r border-[var(--dashboard-border)] transition-transform duration-300 ease-in-out flex-col w-64 z-50 ${
           mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
         } md:hidden flex`}
       >
@@ -174,7 +242,7 @@ export function Layout({ children, currentPage, onPageChange, sidebarCollapsed, 
                 key={item.id}
                 onClick={() => {
                   onPageChange(item.id);
-                  setMobileMenuOpen(false);
+                  handleCloseMobileMenu();
                 }}
                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors ${
                   isActive 
@@ -192,7 +260,7 @@ export function Layout({ children, currentPage, onPageChange, sidebarCollapsed, 
           <button
             onClick={() => {
               onPageChange('design-system');
-              setMobileMenuOpen(false);
+              handleCloseMobileMenu();
             }}
             className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors ${
               currentPage === 'design-system'
@@ -215,7 +283,8 @@ export function Layout({ children, currentPage, onPageChange, sidebarCollapsed, 
             variant="ghost"
             size="icon"
             className="md:hidden"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            onClick={handleMobileMenuToggle}
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </Button>
@@ -255,8 +324,9 @@ export function Layout({ children, currentPage, onPageChange, sidebarCollapsed, 
             <Button 
               variant="ghost" 
               size="icon"
-              onClick={() => setIsDarkMode(!isDarkMode)}
+              onClick={handleThemeToggle}
               className="hidden md:flex"
+              aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
             >
               {isDarkMode ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
             </Button>
@@ -295,4 +365,4 @@ export function Layout({ children, currentPage, onPageChange, sidebarCollapsed, 
       </div>
     </div>
   );
-}
+});
