@@ -1,7 +1,7 @@
 
   # Sales Analytics Dashboard
 
-  React/TypeScript
+  React/TypeScript Dashboard for Sales and Business Management
   
   ## Tech stack
   - React 18 + TypeScript
