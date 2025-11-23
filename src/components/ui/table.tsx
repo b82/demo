@@ -1,10 +1,49 @@
+/**
+ * Table Component Module
+ * 
+ * Provides a flexible table component system with header, body, footer,
+ * and row components. Includes responsive overflow handling.
+ * 
+ * @module components/ui/table
+ */
+
 "use client";
 
 import * as React from "react";
 
 import { cn } from "./utils";
 
-function Table({ className, ...props }: React.ComponentProps<"table">) {
+/**
+ * Table Component
+ * 
+ * @description Main table container with responsive overflow handling.
+ * Wraps the table element in a scrollable container for mobile devices.
+ * 
+ * @param {Object} props - Table component props
+ * @param {string} [props.className] - Additional CSS classes to apply
+ * @param {React.TableHTMLAttributes<HTMLTableElement>} props - All standard table HTML attributes
+ * 
+ * @returns {JSX.Element} Table container with scrollable wrapper
+ * 
+ * @example
+ * ```tsx
+ * <Table>
+ *   <TableHeader>
+ *     <TableRow>
+ *       <TableHead>Name</TableHead>
+ *       <TableHead>Email</TableHead>
+ *     </TableRow>
+ *   </TableHeader>
+ *   <TableBody>
+ *     <TableRow>
+ *       <TableCell>John Doe</TableCell>
+ *       <TableCell>john@example.com</TableCell>
+ *     </TableRow>
+ *   </TableBody>
+ * </Table>
+ * ```
+ */
+function Table({ className, ...props }: React.ComponentProps<"table">): JSX.Element {
   return (
     <div
       data-slot="table-container"

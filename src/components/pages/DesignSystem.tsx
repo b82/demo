@@ -1,3 +1,12 @@
+/**
+ * Design System Page Component Module
+ * 
+ * Showcases the SalesFlow design language, component library, color palette,
+ * typography, and UI patterns. Serves as a reference guide for developers and designers.
+ * 
+ * @module components/pages/DesignSystem
+ */
+
 import React from "react";
 import { Card } from "../ui/card";
 import { Button } from "../ui/button";
@@ -7,7 +16,30 @@ import { Checkbox } from "../ui/checkbox";
 import { Switch } from "../ui/switch";
 import { CheckCircle2, AlertCircle, Info, XCircle } from "lucide-react";
 
-export function DesignSystem() {
+/**
+ * Design System Page Component
+ * 
+ * @description Reference page displaying the complete design system including
+ * color palette, typography, component examples, and UI patterns. Used as a
+ * documentation and reference tool for the design language.
+ * 
+ * @returns {JSX.Element} Design system showcase page
+ * 
+ * @example
+ * ```tsx
+ * import { DesignSystem } from './components/pages/DesignSystem';
+ * 
+ * <DesignSystem />
+ * ```
+ * 
+ * @remarks
+ * - Displays color palette with CSS variable names
+ * - Shows typography scale and examples
+ * - Demonstrates all UI components
+ * - Includes alert/notification examples
+ * - Serves as living style guide
+ */
+export function DesignSystem(): JSX.Element {
   return (
     <div className="space-y-8 max-w-6xl">
       {/* Header */}

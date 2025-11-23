@@ -1,3 +1,12 @@
+/**
+ * Reports Page Component Module
+ * 
+ * Displays comprehensive analytics and reports including revenue trends,
+ * category performance, and business insights with interactive charts.
+ * 
+ * @module components/pages/Reports
+ */
+
 import React from "react";
 import { Card } from "../ui/card";
 import { Button } from "../ui/button";
@@ -15,6 +24,12 @@ import {
   Legend,
 } from "recharts";
 
+/**
+ * Monthly revenue and orders data for line chart
+ * 
+ * @constant {Array<{month: string, revenue: number, orders: number}>}
+ * @private
+ */
 const monthlyData = [
   { month: "Jan", revenue: 45000, orders: 420 },
   { month: "Feb", revenue: 52000, orders: 510 },
@@ -37,6 +52,12 @@ const categoryData = [
   { category: "Sports", sales: 34200 },
 ];
 
+/**
+ * Business insights data for display cards
+ * 
+ * @constant {Array<Object>}
+ * @private
+ */
 const insights = [
   {
     title: "Revenue Growth",
@@ -68,7 +89,29 @@ const insights = [
   },
 ];
 
-export function Reports() {
+/**
+ * Reports Page Component
+ * 
+ * @description Main page component for displaying business analytics and reports.
+ * Includes revenue trends, category performance, and key business insights
+ * with interactive charts and visualizations.
+ * 
+ * @returns {JSX.Element} Reports and analytics page with charts and insights
+ * 
+ * @example
+ * ```tsx
+ * import { Reports } from './components/pages/Reports';
+ * 
+ * <Reports />
+ * ```
+ * 
+ * @remarks
+ * - Displays monthly revenue and orders trends
+ * - Shows category sales performance
+ * - Includes key business insights cards
+ * - Supports data export functionality
+ */
+export function Reports(): JSX.Element {
   return (
     <div className="space-y-6">
       {/* Header */}

@@ -1,10 +1,11 @@
 /**
- * Dashboard Page Component
+ * Dashboard Page Component Module
  * 
  * Displays key performance indicators, sales trends, and recent transactions.
- * Optimized with React.memo and useMemo for performance.
+ * Optimized with React.memo and useMemo for performance. Includes interactive
+ * charts and real-time data visualization.
  * 
- * module components/pages/Dashboard
+ * @module components/pages/Dashboard
  */
 
 import React, { useMemo, memo } from "react";
@@ -139,12 +140,26 @@ const formatToK = (value: number): string => {
 /**
  * Dashboard Page Component
  * 
- * Main dashboard displaying KPIs, sales trends, and recent transactions.
- * Uses memoization for performance optimization.
+ * @description Main dashboard page displaying key performance indicators,
+ * sales trends, top products, and recent transactions. Includes interactive
+ * charts and data visualizations. Optimized with memoization for performance.
  * 
- * returns {JSX.Element} The dashboard page
+ * @returns {JSX.Element} Dashboard page with KPIs, charts, and transaction list
+ * 
+ * @example
+ * ```tsx
+ * import { Dashboard } from './components/pages/Dashboard';
+ * 
+ * <Dashboard />
+ * ```
+ * 
+ * @remarks
+ * - Uses React.memo to prevent unnecessary re-renders
+ * - Memoizes chart data and KPI information
+ * - Includes responsive design for mobile and desktop
+ * - Displays sales trends, top products, and quick stats
  */
-export const Dashboard = memo(function Dashboard() {
+export const Dashboard = memo(function Dashboard(): JSX.Element {
   // Memoize KPI data to prevent unnecessary re-renders
   const memoizedKpiData = useMemo(() => kpiData, []);
   

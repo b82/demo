@@ -1,3 +1,12 @@
+/**
+ * Select Component Module
+ * 
+ * Provides an accessible select/dropdown component built on Radix UI primitives.
+ * Supports keyboard navigation, search, and custom styling.
+ * 
+ * @module components/ui/select
+ */
+
 "use client";
 
 import * as React from "react";
@@ -10,9 +19,40 @@ import {
 
 import { cn } from "./utils";
 
+/**
+ * Select Root Component
+ * 
+ * @description Main container component for select dropdown. Manages the
+ * open/closed state and provides context to child components.
+ * 
+ * @param {Object} props - Select component props
+ * @param {boolean} [props.open] - Controlled open state
+ * @param {boolean} [props.defaultOpen] - Uncontrolled default open state
+ * @param {function} [props.onOpenChange] - Callback fired when open state changes
+ * @param {string} [props.value] - Controlled selected value
+ * @param {string} [props.defaultValue] - Uncontrolled default selected value
+ * @param {function} [props.onValueChange] - Callback fired when value changes
+ * @param {boolean} [props.disabled] - Whether the select is disabled
+ * @param {React.HTMLAttributes<HTMLDivElement>} props - All standard div HTML attributes
+ * 
+ * @returns {JSX.Element} Select root element
+ * 
+ * @example
+ * ```tsx
+ * <Select value={value} onValueChange={setValue}>
+ *   <SelectTrigger>
+ *     <SelectValue placeholder="Select option" />
+ *   </SelectTrigger>
+ *   <SelectContent>
+ *     <SelectItem value="option1">Option 1</SelectItem>
+ *     <SelectItem value="option2">Option 2</SelectItem>
+ *   </SelectContent>
+ * </Select>
+ * ```
+ */
 function Select({
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.Root>) {
+}: React.ComponentProps<typeof SelectPrimitive.Root>): JSX.Element {
   return <SelectPrimitive.Root data-slot="select" {...props} />;
 }
 
@@ -28,6 +68,20 @@ function SelectValue({
   return <SelectPrimitive.Value data-slot="select-value" {...props} />;
 }
 
+/**
+ * Select Trigger Component
+ * 
+ * @description Button element that opens the select dropdown. Displays the
+ * selected value or placeholder text.
+ * 
+ * @param {Object} props - SelectTrigger component props
+ * @param {string} [props.className] - Additional CSS classes to apply
+ * @param {"sm" | "default"} [props.size="default"] - Size of the trigger button
+ * @param {ReactNode} props.children - Usually SelectValue component
+ * @param {React.HTMLAttributes<HTMLButtonElement>} props - All standard button HTML attributes
+ * 
+ * @returns {JSX.Element} Select trigger button element
+ */
 function SelectTrigger({
   className,
   size = "default",
@@ -35,7 +89,7 @@ function SelectTrigger({
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Trigger> & {
   size?: "sm" | "default";
-}) {
+}): JSX.Element {
   return (
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
@@ -54,12 +108,26 @@ function SelectTrigger({
   );
 }
 
+/**
+ * Select Content Component
+ * 
+ * @description Dropdown content container that displays select options.
+ * Includes animations and portal rendering for proper z-index layering.
+ * 
+ * @param {Object} props - SelectContent component props
+ * @param {string} [props.className] - Additional CSS classes to apply
+ * @param {ReactNode} props.children - SelectItem components
+ * @param {"popper" | "item-aligned"} [props.position="popper"] - Positioning strategy
+ * @param {React.HTMLAttributes<HTMLDivElement>} props - All standard div HTML attributes
+ * 
+ * @returns {JSX.Element} Select content container element
+ */
 function SelectContent({
   className,
   children,
   position = "popper",
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.Content>) {
+}: React.ComponentProps<typeof SelectPrimitive.Content>): JSX.Element {
   return (
     <SelectPrimitive.Portal>
       <SelectPrimitive.Content
@@ -102,11 +170,26 @@ function SelectLabel({
   );
 }
 
+/**
+ * Select Item Component
+ * 
+ * @description Individual option item within the select dropdown.
+ * Displays checkmark when selected and handles keyboard navigation.
+ * 
+ * @param {Object} props - SelectItem component props
+ * @param {string} [props.className] - Additional CSS classes to apply
+ * @param {ReactNode} props.children - Item content/text
+ * @param {string} props.value - Value of this option
+ * @param {boolean} [props.disabled] - Whether this item is disabled
+ * @param {React.HTMLAttributes<HTMLDivElement>} props - All standard div HTML attributes
+ * 
+ * @returns {JSX.Element} Select item element
+ */
 function SelectItem({
   className,
   children,
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.Item>) {
+}: React.ComponentProps<typeof SelectPrimitive.Item>): JSX.Element {
   return (
     <SelectPrimitive.Item
       data-slot="select-item"

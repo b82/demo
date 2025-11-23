@@ -1,3 +1,12 @@
+/**
+ * Clients Page Component Module
+ * 
+ * Displays and manages client/customer information with search, filtering,
+ * and detailed client views. Includes customer distribution analytics.
+ * 
+ * @module components/pages/Clients
+ */
+
 import React, { useState } from "react";
 import { Card } from "../ui/card";
 import { Badge } from "../ui/badge";
@@ -7,6 +16,12 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
 import { Users, UserPlus, TrendingUp, Search, Upload, Plus } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts";
 
+/**
+ * Mock client data for demonstration
+ * 
+ * @constant {Array<Object>}
+ * @private
+ */
 const clientsData = [
   { id: "CLT-001", name: "Sarah Johnson", email: "sarah.jemail.com", totalOrders: 12, totalSpent: "€3,589.88", type: "Returning", lastOrder: "2025-11-22", status: "Active" },
   { id: "CLT-002", name: "Michael Chen", email: "m.chenemail.com", totalOrders: 8, totalSpent: "€2,234.92", type: "Returning", lastOrder: "2025-11-20", status: "Active" },
@@ -18,23 +33,73 @@ const clientsData = [
   { id: "CLT-008", name: "David Anderson", email: "d.andersonemail.com", totalOrders: 7, totalSpent: "€1,899.93", type: "Returning", lastOrder: "2025-11-20", status: "Active" },
 ];
 
+/**
+ * Customer type distribution data for pie chart
+ * 
+ * @constant {Array<{name: string, value: number, color: string}>}
+ * @private
+ */
 const customerTypeData = [
   { name: "New Customers", value: 432, color: "#22c55e" },
   { name: "Returning", value: 789, color: "#a855f7" },
   { name: "VIP", value: 208, color: "#3b82f6" },
 ];
 
-export function Clients() {
+/**
+ * Clients Page Component
+ * 
+ * @description Main page component for managing and viewing client information.
+ * Provides search functionality, client filtering, detailed client views,
+ * and customer distribution analytics.
+ * 
+ * @returns {JSX.Element} Clients management page with search, table, and analytics
+ * 
+ * @example
+ * ```tsx
+ * import { Clients } from './components/pages/Clients';
+ * 
+ * <Clients />
+ * ```
+ * 
+ * @remarks
+ * - Uses local state for search and client selection
+ * - Includes responsive design with mobile card view
+ * - Displays customer distribution via pie chart
+ * - Supports client detail view in side sheet
+ */
+export function Clients(): JSX.Element {
+  /** Currently selected client for detail view */
   const [selectedClient, setSelectedClient] = useState<typeof clientsData[0] | null>(null);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [showAddClient, setShowAddClient] = useState(false);
+  /** Search query for filtering clients */
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  /** Controls add client dialog visibility */
+  const [showAddClient, setShowAddClient] = useState<boolean>(false);
 
+  /**
+   * Filters clients based on search query
+   * 
+   * @description Filters clients by name or email matching the search query.
+   * Case-insensitive search.
+   * 
+   * @constant {Array}
+   */
   const filteredClients = clientsData.filter(client =>
     client.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     client.email.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const getTypeColor = (type: string) => {
+  /**
+   * Gets badge color class based on client type
+   * 
+   * @description Returns Tailwind CSS classes for styling badges
+   * based on client type (VIP, Returning, New).
+   * 
+   * @param {string} type - Client type identifier
+   * @returns {string} Tailwind CSS classes for badge styling
+   * 
+   * @private
+   */
+  const getTypeColor = (type: string): string => {
     switch (type) {
       case "VIP": return "bg-blue-500/10 text-blue-500 border-blue-500/20";
       case "Returning": return "bg-purple-500/10 text-purple-500 border-purple-500/20";

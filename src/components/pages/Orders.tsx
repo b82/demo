@@ -1,3 +1,12 @@
+/**
+ * Orders Page Component Module
+ * 
+ * Displays and manages customer orders with filtering, search, and detailed
+ * order views. Includes status management and order tracking.
+ * 
+ * @module components/pages/Orders
+ */
+
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
@@ -7,6 +16,12 @@ import { Filter, Search, Upload } from "lucide-react";
 import { Card } from "../ui/card";
 import React, { useState } from "react";
 
+/**
+ * Mock orders data for demonstration
+ * 
+ * @constant {Array<Object>}
+ * @private
+ */
 const ordersData = [
   { 
     id: "ORD-001234", 
@@ -90,11 +105,44 @@ const ordersData = [
   },
 ];
 
-export function Orders() {
+/**
+ * Orders Page Component
+ * 
+ * @description Main page component for managing and viewing customer orders.
+ * Provides order filtering by status, search functionality, and detailed
+ * order information in a side sheet.
+ * 
+ * @returns {JSX.Element} Orders management page with filters, table, and detail view
+ * 
+ * @example
+ * ```tsx
+ * import { Orders } from './components/pages/Orders';
+ * 
+ * <Orders />
+ * ```
+ * 
+ * @remarks
+ * - Supports filtering by order status
+ * - Includes search by order ID or customer name
+ * - Responsive design with mobile card view
+ * - Detailed order view in side sheet
+ */
+export function Orders(): JSX.Element {
+  /** Currently selected order for detail view */
   const [selectedOrder, setSelectedOrder] = useState<typeof ordersData[0] | null>(null);
-  const [statusFilter, setStatusFilter] = useState("all");
-  const [searchQuery, setSearchQuery] = useState("");
+  /** Current status filter value */
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+  /** Search query for filtering orders */
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
+  /**
+   * Filters orders based on status and search query
+   * 
+   * @description Filters orders by status (if not "all") and by order ID
+   * or customer name matching the search query. Case-insensitive matching.
+   * 
+   * @constant {Array}
+   */
   const filteredOrders = ordersData.filter(order => {
     const matchesStatus = statusFilter === "all" || order.status.toLowerCase() === statusFilter.toLowerCase();
     const matchesSearch = order.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -102,7 +150,18 @@ export function Orders() {
     return matchesStatus && matchesSearch;
   });
 
-  const getStatusColor = (status: string) => {
+  /**
+   * Gets badge color class based on order status
+   * 
+   * @description Returns Tailwind CSS classes for styling status badges.
+   * Supports: Delivered, Pending, Processing, Failed.
+   * 
+   * @param {string} status - Order status identifier
+   * @returns {string} Tailwind CSS classes for badge styling
+   * 
+   * @private
+   */
+  const getStatusColor = (status: string): string => {
     switch (status) {
       case "Delivered":
         return "bg-green-500/10 text-green-500 border-green-500/20";

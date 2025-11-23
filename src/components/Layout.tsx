@@ -1,10 +1,11 @@
 /**
- * Layout Component
+ * Layout Component Module
  * 
  * Main layout component with sidebar, header, and content area.
  * Uses Redux for state management and CSS for theme switching.
+ * Provides responsive navigation with mobile menu support.
  * 
- * module components/Layout
+ * @module components/Layout
  */
 
 import React, { ReactNode, useEffect, useMemo, memo } from "react";
@@ -41,6 +42,17 @@ import {
 } from "./ui/dropdown-menu";
 import { Input } from "./ui/input";
 
+/**
+ * Layout Component Props
+ * 
+ * @description Props interface for the Layout component.
+ * 
+ * @interface LayoutProps
+ * @property {ReactNode} children - Page content to render in the main area
+ * @property {PageType} currentPage - Currently active page identifier
+ * @property {function} onPageChange - Callback function called when page navigation occurs
+ * @property {boolean} sidebarCollapsed - Whether the desktop sidebar is collapsed
+ */
 interface LayoutProps {
   children: ReactNode;
   currentPage: PageType;
@@ -49,7 +61,12 @@ interface LayoutProps {
 }
 
 /**
- * Navigation items configuration
+ * Navigation Items Configuration
+ * 
+ * @description Array of navigation items displayed in the sidebar.
+ * Each item includes an ID, label, and icon component.
+ * 
+ * @constant {Array<{id: PageType, label: string, icon: React.ComponentType}>}
  */
 const navigationItems: Array<{ id: PageType; label: string; icon: typeof LayoutDashboard }> = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -63,24 +80,50 @@ const navigationItems: Array<{ id: PageType; label: string; icon: typeof LayoutD
 /**
  * Layout Component
  * 
- * Provides the main application layout with sidebar navigation and header.
- * Manages theme switching via CSS classes and Redux state.
+ * @description Provides the main application layout with sidebar navigation,
+ * header, and content area. Manages theme switching via CSS classes and Redux state.
+ * Includes responsive design with mobile menu support.
  * 
- * param props - Layout component props
- * param props.children - Page content to render
- * param props.currentPage - Currently active page
- * param props.onPageChange - Callback for page navigation
- * param props.sidebarCollapsed - Whether sidebar is collapsed
- * returns {JSX.Element} The layout component
+ * @param {LayoutProps} props - Layout component props
+ * @param {ReactNode} props.children - Page content to render in the main area
+ * @param {PageType} props.currentPage - Currently active page identifier
+ * @param {function} props.onPageChange - Callback function for page navigation
+ * @param {boolean} props.sidebarCollapsed - Whether the desktop sidebar is collapsed
+ * 
+ * @returns {JSX.Element} The complete layout structure with sidebar, header, and content
+ * 
+ * @example
+ * ```tsx
+ * <Layout
+ *   currentPage="dashboard"
+ *   onPageChange={handlePageChange}
+ *   sidebarCollapsed={false}
+ * >
+ *   <Dashboard />
+ * </Layout>
+ * ```
+ * 
+ * @remarks
+ * - Uses React.memo for performance optimization
+ * - Automatically syncs theme with DOM on state changes
+ * - Supports both desktop sidebar and mobile menu
+ * - Includes accessibility features (ARIA labels, keyboard navigation)
  */
-export const Layout = memo(function Layout({ children, currentPage, onPageChange, sidebarCollapsed }: LayoutProps) {
+export const Layout = memo(function Layout({ children, currentPage, onPageChange, sidebarCollapsed }: LayoutProps): JSX.Element {
   const dispatch = useAppDispatch();
   const isDarkMode = useAppSelector((state) => state.ui.isDarkMode);
   const mobileMenuOpen = useAppSelector((state) => state.ui.mobileMenuOpen);
 
   /**
-   * Syncs dark mode state with DOM class
-   * Uses CSS for theme switching instead of JavaScript manipulation
+   * Syncs dark mode state with DOM
+   * 
+   * @description Updates both data-theme attribute and dark class on document element
+   * when dark mode state changes. Uses CSS for theme switching instead of JavaScript manipulation.
+   * 
+   * @remarks
+   * - Sets data-theme attribute for CSS custom property support
+   * - Maintains 'dark' class for Tailwind CSS dark mode
+   * - Runs whenever isDarkMode state changes
    */
   useEffect(() => {
     // Use CSS custom property for theme instead of class manipulation
@@ -94,35 +137,72 @@ export const Layout = memo(function Layout({ children, currentPage, onPageChange
   }, [isDarkMode]);
 
   /**
-   * Handles sidebar toggle
+   * Handles sidebar toggle action
+   * 
+   * @description Dispatches Redux action to toggle sidebar collapsed state.
+   * 
+   * @example
+   * ```tsx
+   * <Button onClick={handleSidebarToggle}>Toggle Sidebar</Button>
+   * ```
    */
-  const handleSidebarToggle = () => {
+  const handleSidebarToggle = (): void => {
     dispatch(toggleSidebar());
   };
 
   /**
-   * Handles theme toggle
+   * Handles theme toggle action
+   * 
+   * @description Dispatches Redux action to toggle between light and dark themes.
+   * 
+   * @example
+   * ```tsx
+   * <Button onClick={handleThemeToggle}>
+   *   {isDarkMode ? <Sun /> : <Moon />}
+   * </Button>
+   * ```
    */
-  const handleThemeToggle = () => {
+  const handleThemeToggle = (): void => {
     dispatch(toggleTheme());
   };
 
   /**
-   * Handles mobile menu toggle
+   * Handles mobile menu toggle action
+   * 
+   * @description Dispatches Redux action to toggle mobile menu open/closed state.
+   * 
+   * @example
+   * ```tsx
+   * <Button onClick={handleMobileMenuToggle}>
+   *   {mobileMenuOpen ? <X /> : <Menu />}
+   * </Button>
+   * ```
    */
-  const handleMobileMenuToggle = () => {
+  const handleMobileMenuToggle = (): void => {
     dispatch(toggleMobileMenu());
   };
 
   /**
    * Closes mobile menu
+   * 
+   * @description Explicitly closes the mobile menu by setting state to false.
+   * Used when clicking outside the menu or navigating to a new page.
+   * 
+   * @example
+   * ```tsx
+   * <button onClick={handleCloseMobileMenu}>Close</button>
+   * ```
    */
-  const handleCloseMobileMenu = () => {
+  const handleCloseMobileMenu = (): void => {
     dispatch(setMobileMenuOpen(false));
   };
 
   /**
-   * Memoized navigation items to prevent unnecessary re-renders
+   * Memoized navigation items
+   * 
+   * @description Prevents unnecessary re-renders by memoizing the navigation items array.
+   * 
+   * @returns {Array} Navigation items array
    */
   const navItems = useMemo(() => navigationItems, []);
 

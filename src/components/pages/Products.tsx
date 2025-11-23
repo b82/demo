@@ -1,3 +1,12 @@
+/**
+ * Products Page Component Module
+ * 
+ * Displays and manages product catalog with inventory tracking, sales analytics,
+ * and product management features. Includes trending products visualization.
+ * 
+ * @module components/pages/Products
+ */
+
 import React, { useState } from "react";
 import { Card } from "../ui/card";
 import { Badge } from "../ui/badge";
@@ -9,6 +18,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { Package, TrendingUp, Archive, Plus, Search } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
+/**
+ * KPI data for product metrics
+ * 
+ * @constant {Array<Object>}
+ * @private
+ */
 const kpiData = [
   { 
     title: "Total Products", 
@@ -108,6 +123,12 @@ const productsData = [
   },
 ];
 
+/**
+ * Trending products data for bar chart
+ * 
+ * @constant {Array<{name: string, sales: number}>}
+ * @private
+ */
 const trendingData = [
   { name: "Wireless Mouse", sales: 789 },
   { name: "USB-C Hub", sales: 567 },
@@ -116,16 +137,59 @@ const trendingData = [
   { name: "Headphones", sales: 234 },
 ];
 
-export function Products() {
-  const [showAddProduct, setShowAddProduct] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+/**
+ * Products Page Component
+ * 
+ * @description Main page component for managing product catalog and inventory.
+ * Provides product search, status tracking, sales analytics, and product creation.
+ * Includes trending products visualization.
+ * 
+ * @returns {JSX.Element} Products management page with catalog, analytics, and add product dialog
+ * 
+ * @example
+ * ```tsx
+ * import { Products } from './components/pages/Products';
+ * 
+ * <Products />
+ * ```
+ * 
+ * @remarks
+ * - Supports search by product name or category
+ * - Displays inventory status (Active, Out of Stock, Low Stock)
+ * - Includes trending products bar chart
+ * - Add product dialog for creating new products
+ */
+export function Products(): JSX.Element {
+  /** Controls add product dialog visibility */
+  const [showAddProduct, setShowAddProduct] = useState<boolean>(false);
+  /** Search query for filtering products */
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
+  /**
+   * Filters products based on search query
+   * 
+   * @description Filters products by name or category matching the search query.
+   * Case-insensitive search.
+   * 
+   * @constant {Array}
+   */
   const filteredProducts = productsData.filter(product => 
     product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     product.category.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const getStatusColor = (status: string) => {
+  /**
+   * Gets badge color class based on product status
+   * 
+   * @description Returns Tailwind CSS classes for styling status badges.
+   * Supports: Active, Out of Stock, Low Stock.
+   * 
+   * @param {string} status - Product status identifier
+   * @returns {string} Tailwind CSS classes for badge styling
+   * 
+   * @private
+   */
+  const getStatusColor = (status: string): string => {
     switch (status) {
       case "Active":
         return "bg-green-500/10 text-green-500 border-green-500/20";

@@ -1,12 +1,28 @@
 /**
- * Theme utility functions and constants for the Sales Analytics Dashboard
+ * Theme Utility Functions Module
  * 
- * This file provides helper functions and type-safe access to theme variables
- * for both light and dark modes.
+ * Provides helper functions and type-safe access to theme variables
+ * for both light and dark modes. Includes theme detection, toggling,
+ * and CSS variable management.
+ * 
+ * @module lib/theme-utils
  */
 
 /**
  * Gets the current theme mode from the DOM
+ * 
+ * @description Reads the current theme by checking for the 'dark' class
+ * on the document element. Returns 'light' if dark class is not present.
+ * 
+ * @returns {'light' | 'dark'} Current theme mode
+ * 
+ * @example
+ * ```tsx
+ * const theme = getCurrentTheme();
+ * if (theme === 'dark') {
+ *   // Apply dark mode styles
+ * }
+ * ```
  */
 export function getCurrentTheme(): 'light' | 'dark' {
   return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
@@ -14,8 +30,19 @@ export function getCurrentTheme(): 'light' | 'dark' {
 
 /**
  * Toggles the theme between light and dark
+ * 
+ * @description Switches the theme by adding or removing the 'dark' class
+ * from the document element. Returns the new theme after toggling.
+ * 
+ * @returns {'light' | 'dark'} New theme mode after toggle
+ * 
+ * @example
+ * ```tsx
+ * const newTheme = toggleTheme();
+ * console.log(`Theme switched to ${newTheme}`);
+ * ```
  */
-export function toggleTheme() {
+export function toggleTheme(): 'light' | 'dark' {
   const isDark = getCurrentTheme() === 'dark';
   if (isDark) {
     document.documentElement.classList.remove('dark');
@@ -26,41 +53,85 @@ export function toggleTheme() {
 }
 
 /**
- * CSS custom property names for theming
- * Use these with `var()` in your components
+ * CSS Custom Property Names for Theming
+ * 
+ * @description Constants for CSS custom property names used throughout the application.
+ * Use these with `var()` in your components for consistent theming.
+ * 
+ * @constant {Object<string, string>}
+ * 
+ * @example
+ * ```tsx
+ * <div style={{ backgroundColor: `var(${ThemeVars.background})` }}>
+ *   Content
+ * </div>
+ * ```
+ * 
+ * @example
+ * ```css
+ * .my-component {
+ *   color: var(--dashboard-text-primary);
+ *   border: 1px solid var(--dashboard-border);
+ * }
+ * ```
  */
 export const ThemeVars = {
   // Background colors
+  /** Main background color */
   background: '--dashboard-bg',
+  /** Surface/card background color */
   surface: '--dashboard-surface',
+  /** Subtle surface background color */
   surfaceSubtle: '--dashboard-surface-subtle',
   
   // Borders
+  /** Border color */
   border: '--dashboard-border',
   
   // Text colors
+  /** Primary text color */
   textPrimary: '--dashboard-text-primary',
+  /** Secondary text color */
   textSecondary: '--dashboard-text-secondary',
+  /** Muted/subdued text color */
   textMuted: '--dashboard-text-muted',
   
   // Accent colors
+  /** Primary accent color (green) */
   accentPrimary: '--dashboard-accent-primary',
+  /** Secondary accent color (purple) */
   accentSecondary: '--dashboard-accent-secondary',
   
   // Status colors
+  /** Success status color */
   success: '--dashboard-success',
+  /** Warning status color */
   warning: '--dashboard-warning',
+  /** Error status color */
   error: '--dashboard-error',
   
   // Chart colors
+  /** Chart grid line color */
   chartGrid: '--dashboard-chart-grid',
+  /** Hover state background color */
   hover: '--dashboard-hover',
 } as const;
 
 /**
- * Semantic color tokens for light and dark modes
+ * Semantic Color Tokens for Light and Dark Modes
+ * 
+ * @description Color palette definitions for both light and dark themes.
+ * Provides consistent color values that adapt to the current theme.
+ * 
+ * @constant {Object}
+ * 
+ * @example
+ * ```tsx
+ * const bgColor = ThemeColors[getCurrentTheme()].background;
+ * ```
  */
 export const ThemeColors = {
+  /** Light theme color palette */
   light: {
     background: '#F5F6F8',
     surface: '#FFFFFF',
@@ -77,6 +148,7 @@ export const ThemeColors = {
     chartGrid: '#E0E2E6',
     hover: '#F2F3F5',
   },
+  /** Dark theme color palette */
   dark: {
     background: '#0F0F0F',
     surface: '#1C1C1C',
@@ -97,6 +169,19 @@ export const ThemeColors = {
 
 /**
  * Get a theme color value for the current theme
+ * 
+ * @description Retrieves a color value from the theme palette based on the
+ * current theme mode (light or dark).
+ * 
+ * @param {keyof typeof ThemeColors.light} key - Color key to retrieve
+ * 
+ * @returns {string} Hex color value for the current theme
+ * 
+ * @example
+ * ```tsx
+ * const bgColor = getThemeColor('background');
+ * const textColor = getThemeColor('textPrimary');
+ * ```
  */
 export function getThemeColor(key: keyof typeof ThemeColors.light): string {
   const theme = getCurrentTheme();
@@ -105,6 +190,23 @@ export function getThemeColor(key: keyof typeof ThemeColors.light): string {
 
 /**
  * Helper to generate CSS var() string
+ * 
+ * @description Creates a CSS variable reference string for use in inline styles
+ * or CSS-in-JS solutions.
+ * 
+ * @param {string} variable - CSS custom property name (with or without '--' prefix)
+ * 
+ * @returns {string} CSS var() function string
+ * 
+ * @example
+ * ```tsx
+ * const bgVar = cssVar(ThemeVars.background);
+ * // Returns: 'var(--dashboard-bg)'
+ * 
+ * <div style={{ backgroundColor: cssVar('--dashboard-bg') }}>
+ *   Content
+ * </div>
+ * ```
  */
 export function cssVar(variable: string): string {
   return `var(${variable})`;

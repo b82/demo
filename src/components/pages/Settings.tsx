@@ -1,3 +1,12 @@
+/**
+ * Settings Page Component Module
+ * 
+ * Provides user preferences and accessibility settings including theme customization,
+ * UI density options, font size controls, and accessibility features.
+ * 
+ * @module components/pages/Settings
+ */
+
 import React from "react";
 import { Card } from "../ui/card";
 import { Label } from "../ui/label";
@@ -6,7 +15,31 @@ import { Switch } from "../ui/switch";
 import { Button } from "../ui/button";
 import { Palette, Moon, Sun, Zap, Type, Eye, Contrast } from "lucide-react";
 
-export function Settings() {
+/**
+ * Settings Page Component
+ * 
+ * @description Main page component for managing user preferences and settings.
+ * Includes theme options (light/dark/auto), accent color selection, UI density,
+ * font size controls, and accessibility features.
+ * 
+ * @returns {JSX.Element} Settings page with theme and accessibility options
+ * 
+ * @example
+ * ```tsx
+ * import { Settings } from './components/pages/Settings';
+ * 
+ * <Settings />
+ * ```
+ * 
+ * @remarks
+ * - Theme mode selection (Light, Dark, Auto)
+ * - Accent color customization
+ * - UI density options (Compact, Standard, Comfortable)
+ * - Font size slider
+ * - Accessibility toggles (High Contrast, Reduce Motion, etc.)
+ * - Display preferences management
+ */
+export function Settings(): JSX.Element {
   return (
     <div className="space-y-6 max-w-4xl">
       {/* Header */}

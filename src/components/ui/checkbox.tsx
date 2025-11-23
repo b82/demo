@@ -1,3 +1,12 @@
+/**
+ * Checkbox Component Module
+ * 
+ * Provides an accessible checkbox component built on Radix UI primitives.
+ * Supports checked, unchecked, and indeterminate states.
+ * 
+ * @module components/ui/checkbox
+ */
+
 "use client";
 
 import * as React from "react";
@@ -6,10 +15,47 @@ import { CheckIcon } from "lucide-react";
 
 import { cn } from "./utils";
 
+/**
+ * Checkbox Component
+ * 
+ * @description An accessible checkbox component for form inputs and selections.
+ * Includes checkmark indicator and proper validation states.
+ * 
+ * @param {Object} props - Checkbox component props
+ * @param {string} [props.className] - Additional CSS classes to apply
+ * @param {boolean | "indeterminate"} [props.checked] - Controlled checked state
+ * @param {boolean} [props.defaultChecked] - Uncontrolled default checked state
+ * @param {function} [props.onCheckedChange] - Callback fired when checked state changes
+ * @param {boolean} [props.disabled] - Whether the checkbox is disabled
+ * @param {boolean} [props.required] - Whether the checkbox is required
+ * @param {React.HTMLAttributes<HTMLButtonElement>} props - All standard button HTML attributes
+ * 
+ * @returns {JSX.Element} Checkbox element with checkmark indicator
+ * 
+ * @example
+ * ```tsx
+ * <Checkbox checked={accepted} onCheckedChange={setAccepted} />
+ * ```
+ * 
+ * @example
+ * ```tsx
+ * // With label
+ * <div className="flex items-center gap-2">
+ *   <Checkbox id="terms" />
+ *   <Label htmlFor="terms">Accept terms and conditions</Label>
+ * </div>
+ * ```
+ * 
+ * @remarks
+ * - Supports checked, unchecked, and indeterminate states
+ * - Includes checkmark icon indicator
+ * - Proper validation styling with aria-invalid
+ * - Accessible via keyboard navigation
+ */
 function Checkbox({
   className,
   ...props
-}: React.ComponentProps<typeof CheckboxPrimitive.Root>) {
+}: React.ComponentProps<typeof CheckboxPrimitive.Root>): JSX.Element {
   return (
     <CheckboxPrimitive.Root
       data-slot="checkbox"

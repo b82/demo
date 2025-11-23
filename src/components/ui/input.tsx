@@ -1,8 +1,57 @@
+/**
+ * Input Component Module
+ * 
+ * Provides a styled input component with accessibility features,
+ * validation states, and dark mode support.
+ * 
+ * @module components/ui/input
+ */
+
 import * as React from "react";
 
 import { cn } from "./utils";
 
-function Input({ className, type, ...props }: React.ComponentProps<"input">) {
+/**
+ * Input Component
+ * 
+ * @description A styled input element with built-in focus states, validation
+ * styling, and accessibility features. Supports all standard input types and
+ * HTML attributes.
+ * 
+ * @param {Object} props - Input component props
+ * @param {string} [props.className] - Additional CSS classes to apply
+ * @param {string} [props.type] - Input type (text, email, password, number, etc.)
+ * @param {React.InputHTMLAttributes<HTMLInputElement>} props - All standard input HTML attributes
+ * 
+ * @returns {JSX.Element} Styled input element
+ * 
+ * @example
+ * ```tsx
+ * <Input 
+ *   type="email" 
+ *   placeholder="Enter your email"
+ *   className="w-full"
+ * />
+ * ```
+ * 
+ * @example
+ * ```tsx
+ * // With validation
+ * <Input 
+ *   type="text"
+ *   aria-invalid={hasError}
+ *   className={hasError ? "border-red-500" : ""}
+ * />
+ * ```
+ * 
+ * @remarks
+ * - Includes focus-visible ring for accessibility
+ * - Supports aria-invalid for validation states
+ * - Dark mode compatible
+ * - File input styling included
+ * - Disabled state properly styled
+ */
+function Input({ className, type, ...props }: React.ComponentProps<"input">): JSX.Element {
   return (
     <input
       type={type}

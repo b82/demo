@@ -1,3 +1,12 @@
+/**
+ * Sheet Component Module
+ * 
+ * Provides an accessible side panel/sheet component built on Radix UI Dialog.
+ * Supports slide-in animations from any side (top, right, bottom, left).
+ * 
+ * @module components/ui/sheet
+ */
+
 "use client";
 
 import * as React from "react";
@@ -6,7 +15,34 @@ import { XIcon } from "lucide-react";
 
 import { cn } from "./utils";
 
-function Sheet({ ...props }: React.ComponentProps<typeof SheetPrimitive.Root>) {
+/**
+ * Sheet Root Component
+ * 
+ * @description Main container component for sheet side panels. Manages the
+ * open/closed state and provides context to child components.
+ * 
+ * @param {Object} props - Sheet component props
+ * @param {boolean} [props.open] - Controlled open state
+ * @param {boolean} [props.defaultOpen] - Uncontrolled default open state
+ * @param {function} [props.onOpenChange] - Callback fired when open state changes
+ * @param {React.HTMLAttributes<HTMLDivElement>} props - All standard div HTML attributes
+ * 
+ * @returns {JSX.Element} Sheet root element
+ * 
+ * @example
+ * ```tsx
+ * <Sheet open={isOpen} onOpenChange={setIsOpen}>
+ *   <SheetTrigger>Open Sheet</SheetTrigger>
+ *   <SheetContent side="right">
+ *     <SheetHeader>
+ *       <SheetTitle>Title</SheetTitle>
+ *     </SheetHeader>
+ *     Content here
+ *   </SheetContent>
+ * </Sheet>
+ * ```
+ */
+function Sheet({ ...props }: React.ComponentProps<typeof SheetPrimitive.Root>): JSX.Element {
   return <SheetPrimitive.Root data-slot="sheet" {...props} />;
 }
 
@@ -46,6 +82,20 @@ const SheetOverlay = React.forwardRef<
 });
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
+/**
+ * Sheet Content Component
+ * 
+ * @description Main content container for the sheet. Includes overlay,
+ * slide animations, and close button. Supports positioning from any side.
+ * 
+ * @param {Object} props - SheetContent component props
+ * @param {string} [props.className] - Additional CSS classes to apply
+ * @param {ReactNode} props.children - Sheet content
+ * @param {"top" | "right" | "bottom" | "left"} [props.side="right"] - Side from which sheet slides in
+ * @param {React.HTMLAttributes<HTMLDivElement>} props - All standard div HTML attributes
+ * 
+ * @returns {JSX.Element} Sheet content container with overlay and animations
+ */
 function SheetContent({
   className,
   children,
@@ -53,7 +103,7 @@ function SheetContent({
   ...props
 }: React.ComponentProps<typeof SheetPrimitive.Content> & {
   side?: "top" | "right" | "bottom" | "left";
-}) {
+}): JSX.Element {
   return (
     <SheetPortal>
       <SheetOverlay />

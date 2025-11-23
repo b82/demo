@@ -1,3 +1,12 @@
+/**
+ * Dialog Component Module
+ * 
+ * Provides an accessible modal dialog component built on Radix UI primitives.
+ * Supports focus trapping, keyboard navigation, and animations.
+ * 
+ * @module components/ui/dialog
+ */
+
 "use client";
 
 import * as React from "react";
@@ -6,9 +15,40 @@ import { XIcon } from "lucide-react";
 
 import { cn } from "./utils";
 
+/**
+ * Dialog Root Component
+ * 
+ * @description Main container component for dialog modals. Manages the
+ * open/closed state and provides context to child components.
+ * 
+ * @param {Object} props - Dialog component props
+ * @param {boolean} [props.open] - Controlled open state
+ * @param {boolean} [props.defaultOpen] - Uncontrolled default open state
+ * @param {function} [props.onOpenChange] - Callback fired when open state changes
+ * @param {React.HTMLAttributes<HTMLDivElement>} props - All standard div HTML attributes
+ * 
+ * @returns {JSX.Element} Dialog root element
+ * 
+ * @example
+ * ```tsx
+ * <Dialog open={isOpen} onOpenChange={setIsOpen}>
+ *   <DialogTrigger>Open Dialog</DialogTrigger>
+ *   <DialogContent>
+ *     <DialogHeader>
+ *       <DialogTitle>Title</DialogTitle>
+ *       <DialogDescription>Description</DialogDescription>
+ *     </DialogHeader>
+ *     Content here
+ *     <DialogFooter>
+ *       <Button>Save</Button>
+ *     </DialogFooter>
+ *   </DialogContent>
+ * </Dialog>
+ * ```
+ */
 function Dialog({
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Root>) {
+}: React.ComponentProps<typeof DialogPrimitive.Root>): JSX.Element {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;
 }
 
@@ -46,11 +86,24 @@ function DialogOverlay({
   );
 }
 
+/**
+ * Dialog Content Component
+ * 
+ * @description Main content container for the dialog. Includes overlay,
+ * animations, and close button. Renders in a portal for proper layering.
+ * 
+ * @param {Object} props - DialogContent component props
+ * @param {string} [props.className] - Additional CSS classes to apply
+ * @param {ReactNode} props.children - Dialog content
+ * @param {React.HTMLAttributes<HTMLDivElement>} props - All standard div HTML attributes
+ * 
+ * @returns {JSX.Element} Dialog content container with overlay
+ */
 function DialogContent({
   className,
   children,
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Content>) {
+}: React.ComponentProps<typeof DialogPrimitive.Content>): JSX.Element {
   return (
     <DialogPortal data-slot="dialog-portal">
       <DialogOverlay />
